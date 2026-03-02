@@ -180,7 +180,9 @@ are available in this repository:
 - [IsambardAI Slurm batch script](./benchmark/submit_isambard_mps.slurm)
 - [IsambardAI MPS launch wrapper script](./benchmark/isambard-mps-wrapper.sh)
 
-## Correctness results
+## Results
+
+### Correctness results
 
 Correctness can be verified using the [validate.py](./validate.py) script,
 which compares the total energy to the expected value on computed on 
