@@ -37,23 +37,20 @@ All questions on the benchmark must be submitted via the procurement response me
 
 ## Building the benchmark
 
-**Important:** All results submitted should be based on the following repository commits:
+**Important:** All results submitted should be based on the following repository commit:
 
 - CP2K repository: [release version 2026.1 (757bb76)](https://github.com/cp2k/cp2k/releases/tag/v2026.1)
-- H2O-DFT-LS benchmark: [most recent version from this benchmark description repository](https://github.com/aturner-epcc/uknnss-benchmark-cp2k)
 
 Any modifications made to the source code for the baseline build or the optimised build must be 
 shared as part of the offerer submission.
 
-### Permitted modifications
-
-#### Baseline build
+### Baseline build
 
 For the baseline run the only permitted modifications allowed are those that
 modify the CP2K or its dependencies to resolve unavoidable compilation or
 runtime errors.
 
-#### Optimised build
+### Optimised build
 
 Any modifications to the source code are allowed as long as they are able to be provided
 back to the community under the same licence as is used for the software package that is
