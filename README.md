@@ -1,8 +1,5 @@
 # UK NNSS CP2K benchmark
 
-**Important:** Please do not contact the benchmark maintainers directly with any questions.
-All questions on the benchmark must be submitted via the procurement response mechanism.
-
 This repository describes the CP2K benchmark for the UK NNSS procurement.
 CP2K is a quantum chemistry and solid state physics software package that
 can perform atomistic simulations of solid state, liquid, molecular, periodic,
@@ -28,6 +25,9 @@ Stable
 ## Maintainers
 
 - Andrew Turner
+
+**Important:** Please do not contact the benchmark maintainers directly with any questions.
+All questions on the benchmark must be submitted via the procurement response mechanism.
 
 ## Overview
 
@@ -57,14 +57,17 @@ runtime errors.
 
 Any modifications to the source code are allowed as long as they are able to be provided
 back to the community under the same licence as is used for the software package that is
-being modified.
+being modified. Any submitted benchmark must clearly point to a publicly visible pull/merge
+request issued by the benchmarking team that contains all changes, i.e. the same (altered)
+code base as to be used for all benchmark runs.
 
-### Manual build
+The assessment team furthermore appreciates a description of any changes implemented by
+the benchmarking team.
+
+### Build instructions
 
 As an example, we provide manual instructions for building CP2K on
 [IsambardAI](https://docs.isambard.ac.uk/specs/#system-specifications-isambard-ai-phase-2).
-It is also possible to install CP2K using Spack (we do not provide
-instructions for this approach).
 
 **Download and unpack source code**
 
@@ -151,9 +154,9 @@ on the
 
 Example output from the running the benchmark on IsambardAI using 32 nodes
 (128 GH200 superchip) with NVIDIA MPS (8 MPI processes per GPU) is also provided
-in the "benchmark"  directory.
+in the [./benchmark/](./benchmark)  directory.
 
-The parameter "NREP" in the "H2O-dft-ls.inp" file *must* be set to "6" for
+The parameter "NREP" in the `H2O-dft-ls.inp` file *must* be set to "6" for
 submitted results. This parameter sets the problem size and can be
 decreased to enable testing on smaller numbers of GPU/GCD if required. The
 number of atoms in the model scales cubically with NREP.
@@ -161,36 +164,15 @@ number of atoms in the model scales cubically with NREP.
 **Note:** For best performance from key DBSCR routines a square number of MPI
 processes may need to be used (e.g. 64, 256, 1024).
 
-### Required Tests
-
-**Important:** The `NREP` parameter in the "H2O-dft-ls.inp" input file *must* be 
-set to "6" for the required tests.
-
-- **Target configuration:** There is *no minimum GPU/GCD count* for the CP2K H2O-dft-ls NREP6 benchmark.
-- **Reference FoM:** The reference FoM for the CP2K H2O-dft-ls NREP6 benchmark is from the IsambardAI system using 128 GPU (32 nodes) is *42 s*.
-
-**Important:** For the both the baseline build and the optimised build, the projected FoM submitted 
-must give at least the same performance as the reference value.
-
-### Job submission
+### Benchmark execution
 
 Make sure all the input files are in the working directory and use the
-parallel launcher to run CP2K specifying the input and output file. 
+parallel launcher (e.g. `srun` or `mpirun`) to run CP2K specifying the
+input and output files using the `-i [inputfile].inp` and `-o [outputfile.out]`
+options respectively. 
 
 **Note:** You may need to use a wrapper script to enable proper process
 to GPU binding or to launch any multi-process per GPU services. 
-
-For example, on IsambardAI, the launch line looks like:
-
-```
-srun  --cpu-bind=socket \
-     ../isambard-mps-wrapper.sh $CP2K_EXE -i ${casename}.inp -o ${resfile}
-```
-
-Using bash variables for the input filename and output filename, Slurm `srun`
-as the parallel launcher, and the `../isambard-mps-wrapper.sh` script to 
-ensure that the multi-process per GPU service is launched correctly and 
-processes are bound to the correct GPU.
 
 The full example Slurm batch script and MPS wrapper script from IsambardAI
 are available in this repository:
@@ -198,9 +180,7 @@ are available in this repository:
 - [IsambardAI Slurm batch script](./benchmark/submit_isambard_mps.slurm)
 - [IsambardAI MPS launch wrapper script](./benchmark/isambard-mps-wrapper.sh)
 
-## Results
-
-### Correctness & Timing 
+## Correctness results
 
 Correctness can be verified using the [validate.py](./validate.py) script,
 which compares the total energy to the expected value on computed on 
@@ -234,7 +214,9 @@ For example:
   BenchmarkTime: 42.5 s
 ```
 
-In addition, `validate.py` will also print the BenchmarkTime,
+### Performance results
+
+In addition to testing for correctness, `validate.py` will also print the BenchmarkTime,
 which is the sole FoM for the benchmark.
 The BenchmarkTime printed by `validate.py` corresponds to the
 elapsed time reported in the CP2K output file.
@@ -248,15 +230,27 @@ To be a valid FoM, the following conditions must be met:
 - The CP2K input files must not be modified from the versions
   available in this repository
 
-### Reference Performance on IsambardAI
+### Required data
+
+**Important:** The `NREP` parameter in the "H2O-dft-ls.inp" input file *must* be 
+set to "6" for the required tests.
+
+- **Target configuration:** There is *no minimum GPU/GCD count* for the CP2K H2O-dft-ls NREP6 benchmark.
+- **Reference FoM:** The reference FoM for the CP2K H2O-dft-ls NREP6 benchmark is from the IsambardAI system using 128 GPU (32 nodes) is *42 s*.
+
+**Important:** For the both the baseline build and the optimised build, the projected FoM submitted 
+must give at least the same performance as the reference value.
+
+### Example performance data
 
 The sample data in the table below are measured BencharkTime from the IsambardAI GPU system.
 IsambardAI's GPU nodes each have four NVIDIA GH200 superchips;
 GPU jobs used 32 MPI processes per node, 8 MPI processes per GPU and 9 OpenMP CPU 
 threads per MPI process. [NVIDIA MPS](https://docs.nvidia.com/deploy/mps/index.html)  
 is used to support multiple MPI processes per node as this gives improved performance
-over a single MPI process per GPU. The upper rows of the table describe
-performance change as the problem size increases.
+over a single MPI process per GPU.
+
+The upper rows of the table describe performance change as the problem size increases.
 The lower two rows show the performance of the benchmark problem size (NREP 6) for
 two different GPU counts CP2K. The final row corresponds to the reference configuration
 that must be matched by the offerer.
@@ -272,11 +266,9 @@ that must be matched by the offerer.
 | NREP 6    | 20736 | 128 |    8 | 1024 |  42.0* |
 
 
-The reference time was determined
-by running the reference problem on 128 IsambardAI GH200 (32 GPU nodes)
-with 8 MPI processes per GPU and 9 OpenMP CPU threads per MPI process.
-and is marked by a *.
-The projected BenchmarkTime for the target problem on the target system
+The reference time was determined by running the reference problem on 128 IsambardAI
+GH200 (32 GPU nodes) with 8 MPI processes per GPU and 9 OpenMP CPU threads per MPI process.
+and is marked by a *. The projected BenchmarkTime for the target problem on the target system
 must not exceed this value.
 
 ## Reporting Results
