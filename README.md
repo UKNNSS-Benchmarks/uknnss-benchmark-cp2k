@@ -41,9 +41,6 @@ All questions on the benchmark must be submitted via the procurement response me
 
 - CP2K repository: [release version 2026.1 (757bb76)](https://github.com/cp2k/cp2k/releases/tag/v2026.1)
 
-Any modifications made to the source code for the baseline build or the optimised build must be 
-shared as part of the offerer submission.
-
 ### Baseline build
 
 For the baseline run the only permitted modifications allowed are those that
@@ -151,7 +148,7 @@ on the
 
 Example output from the running the benchmark on IsambardAI using 32 nodes
 (128 GH200 superchip) with NVIDIA MPS (8 MPI processes per GPU) is also provided
-in the [./benchmark/](./benchmark)  directory.
+in the [benchmark](./benchmark)  directory.
 
 The parameter "NREP" in the `H2O-dft-ls.inp` file *must* be set to "6" for
 submitted results. This parameter sets the problem size and can be
@@ -235,7 +232,7 @@ To be a valid FoM, the following conditions must be met:
 set to "6" for the required tests.
 
 - **Target configuration:** There is *no minimum GPU/GCD count* for the CP2K H2O-dft-ls NREP6 benchmark.
-- **Reference FoM:** The reference FoM for the CP2K H2O-dft-ls NREP6 benchmark is from the IsambardAI system using 128 GPU (32 nodes) is *42 s*.
+- **Reference FoM:** The reference FoM for the CP2K H2O-dft-ls NREP=6 benchmark is from the IsambardAI system using 128 GPU (32 nodes) is *42 s*.
 
 **Important:** For the both the baseline build and the optimised build, the projected FoM submitted 
 must give at least the same performance as the reference value.
@@ -262,7 +259,7 @@ that must be matched by the offerer.
 | NREP 4    |  6144 |   4 |    8 |   32 |  75.7  |
 | NREP 5    | 12000 |   8 |    8 |   64 | 104.9  |
 | NREP 6    | 20736 |  32 |    8 |  256 |  90.2  |
-| NREP 6    | 20736 | 128 |    8 | 1024 |  42.0* |
+| NREP 6    | 20736 | 128 |    8 | 1024 |  42.5* |
 
 
 The reference time was determined by running the reference problem on 128 IsambardAI
