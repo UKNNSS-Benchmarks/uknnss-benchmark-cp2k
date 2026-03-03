@@ -29,9 +29,7 @@ Stable
 **Important:** Please do not contact the benchmark maintainers directly with any questions.
 All questions on the benchmark must be submitted via the procurement response mechanism.
 
-## Overview
-
-### Software
+## Software
 
 [CP2K](https://github.com/cp2k/cp2k)
 
@@ -231,8 +229,9 @@ To be a valid FoM, the following conditions must be met:
 **Important:** The `NREP` parameter in the "H2O-dft-ls.inp" input file *must* be 
 set to "6" for the required tests.
 
-- **Target configuration:** There is *no minimum GPU/GCD count* for the CP2K H2O-dft-ls NREP6 benchmark.
-- **Reference FoM:** The reference FoM for the CP2K H2O-dft-ls NREP=6 benchmark is from the IsambardAI system using 128 GPU (32 nodes) is *42 s*.
+- **Target configuration:** There is *no minimum GPU count* for the CP2K H2O-dft-ls NREP6 benchmark.
+- **Reference FoM:** The reference FoM for the CP2K H2O-dft-ls NREP6 benchmark is from the IsambardAI
+  system using 128 GPU (32 nodes) is *42 s*.
 
 **Important:** For the both the baseline build and the optimised build, the projected FoM submitted 
 must give at least the same performance as the reference value.
