@@ -81,7 +81,7 @@ def check_result( natom, energy ):
         print("     Not reference case - skipping energy comparison")
         status_passed = False
     else:
-        print(f"  Reference case # atoms: {natom_ref} (NREP {nrep_ref_l[natom]})\n")
+        print(f"  Reference case # atoms: {natom} (NREP {nrep_ref_l[natom]})\n")
         e_tol = 0.000001
         e_ref = e_ref_l[natom]
         e_err = abs( ( energy - e_ref ) / e_ref )
