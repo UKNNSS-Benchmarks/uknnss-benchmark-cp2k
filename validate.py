@@ -76,7 +76,7 @@ def check_result( natom, energy ):
 
     print(f"         Number of atoms: {natom} ")
 
-    if (natom not in natom_ref):
+    if (natom not in natom_ref_l):
         print(f"    Measured: {energy:.8f} hartree")
         print("     Not reference case - skipping energy comparison")
         status_passed = False
