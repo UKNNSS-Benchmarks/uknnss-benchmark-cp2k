@@ -153,15 +153,25 @@ To be a valid FoM, the following conditions must be met:
 
 ### Required data
 
-**Important:** The `NREP` parameter in the "H2O-dft-ls.inp" input file *must* be 
-set to "6" for the required tests.
 
-- **Target configuration:** There is *no minimum GPU count* for the CP2K H2O-dft-ls NREP6 benchmark.
-- **Reference FoM:** The reference FoM for the CP2K H2O-dft-ls NREP6 benchmark is from the IsambardAI
-  system using 128 GPU (32 nodes) is *42 s*.
+Data for the following table have to be provided. Optionally, if partitions
+with different hardware (e.g. processor/GPU type, interconnect) are provided, then the
+benchmark should also be run on the maximum possible size in each partition and the
+results reported in the same format as the table below.
 
-**Important:** For the both the baseline build and the optimised build, the projected FoM submitted 
-must give at least the same performance as the reference value.
+In all cases, the bidder is free to choose the number of MPI processes per GPU
+that gives the best performance for that case.
+
+| Size      | # Atoms | # GPU | # MPI per GPU | # MPI Total | Baseline BenchmarkTime (s) | Optimised BenchmarkTime (s) |
+| :-------- | ----: | --: | --: | --: | --: | --: |
+| NREP 1    |    96 |   1 |     |     |     |     |
+| NREP 2    |   768 |   1 |     |     |     |     |
+| NREP 3    |  2592 |   1 |     |     |     |     |
+| NREP 4    |  6144 |   4 |     |     |     |     |
+| NREP 5    | 12000 |   8 |     |     |     |     |
+| NREP 6    | 20736 |  32 |     |     |     |     |
+| NREP 6    | 20736 | 128 |     |     |     |     |
+| NREP 6    | 20736 | (Choose #GPU for best performance) |  |  |  |  |
 
 ### Example performance data
 

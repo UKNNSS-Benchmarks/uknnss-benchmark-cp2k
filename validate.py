@@ -56,18 +56,34 @@ def parse_output( fname ):
 
 def check_result( natom, energy ):
 
-    natom_ref = 20736
-    e_ref = -118874.30605090
+    natom_ref_l = [96, 768, 2592, 6144, 12000, 20736]
+    nrep_ref_l = {
+        96: 1,
+        768: 2,
+        2592: 3,
+        6144: 4,
+        12000: 5,
+        20736: 6
+    }
+    e_ref_l = {
+        96: -118874.30605090,
+        768: -118874.30605090,
+        2592: -118874.30605090,
+        6144: -118874.30605090,
+        12000: -118874.30605090,
+        20736: -118874.30605090
+    }
 
-    print(f"         Number of atoms: {natom}")
-    print(f"  Reference case # atoms: {natom_ref}\n")
-    
-    if (natom != natom_ref):
+    print(f"         Number of atoms: {natom} ")
+
+    if (natom not in natom_ref):
         print(f"    Measured: {energy:.8f} hartree")
         print("     Not reference case - skipping energy comparison")
         status_passed = False
     else:
+        print(f"  Reference case # atoms: {natom_ref} (NREP {nrep_ref_l[natom]})\n")
         e_tol = 0.000001
+        e_ref = e_ref_l[natom]
         e_err = abs( ( energy - e_ref ) / e_ref )
         status_passed = ( e_err < e_tol )
         print(f"    Measured: {energy:.8f} hartree")
