@@ -75,9 +75,8 @@ Example output from the running the benchmark on IsambardAI using 32 nodes
 (128 GH200 superchip) with NVIDIA MPS (8 MPI processes per GPU) is also provided
 in the [benchmark](./benchmark)  directory.
 
-The parameter "NREP" in the `H2O-dft-ls.inp` file *must* be set to "6" for
-submitted results. This parameter sets the problem size and can be
-decreased to enable testing on smaller numbers of GPU/GCD if required. The
+The parameter "NREP" in the `H2O-dft-ls.inp` file sets the problem size and 
+is varied to provide all the data required from submission. The
 number of atoms in the model scales cubically with NREP.
 
 **Note:** For best performance from key DBSCR routines a square number of MPI
@@ -105,11 +104,10 @@ are available in this repository:
 
 Correctness can be verified using the [validate.py](./validate.py) script,
 which compares the total energy to the expected value on computed on 
-IsambardAI (-118874.30605090 hartree). 
+IsambardAI (the unit of energy is "Hartree"). 
 
 Note: different values of NREP in the input file will produce different
-total energies for the full system. The energy check in the validate.py
-script is only valid when NREP is set to 6.
+total energies for the full system.
 
 For example:
 
@@ -123,8 +121,8 @@ For example:
 
 # CP2K H2O-dft-ls benchmark validation
 
-         Number of atoms: 20736
-  Reference case # atoms: 20736
+         Number of atoms: 20736 
+  Reference case # atoms: 20736 (NREP 6)
 
     Measured: -118874.30605090 hartree
    Reference: -118874.30605090 hartree
@@ -132,7 +130,8 @@ For example:
    Tolerance: 0.00000100 hartree
   Validation: PASSED
 
-  BenchmarkTime: 42.5 s
+  BenchmarkTime: 35.2 s
+
 ```
 
 ### Performance results
@@ -146,13 +145,10 @@ To be a valid FoM, the following conditions must be met:
 
 - CP2K must be compiled with the commits stated above
   and must meet any source code modification restrictions stated above
-- The value of `NREP` in the benchmark input file must be
-  set to "6"
 - The CP2K input files must not be modified from the versions
-  available in this repository
+  available in this repository (other than setting "NREP" as required)
 
 ### Required data
-
 
 Data for the following table have to be provided. Optionally, if partitions
 with different hardware (e.g. processor/GPU type, interconnect) are provided, then the
@@ -195,13 +191,7 @@ that must be matched by the offerer.
 | NREP 4    |  6144 |   4 |    8 |   32 |  75.7  |
 | NREP 5    | 12000 |   8 |    8 |   64 | 104.9  |
 | NREP 6    | 20736 |  32 |    8 |  256 |  90.2  |
-| NREP 6    | 20736 | 128 |    8 | 1024 |  42.5* |
-
-
-The reference time was determined by running the reference problem on 128 IsambardAI
-GH200 (32 GPU nodes) with 8 MPI processes per GPU and 9 OpenMP CPU threads per MPI process.
-and is marked by a *. The projected BenchmarkTime for the target problem on the target system
-must not exceed this value.
+| NREP 6    | 20736 | 128 |    8 | 1024 |  42.5  |
 
 ## Reporting Results
 
@@ -212,7 +202,7 @@ The bidder should provide copies of:
   including makefiles, compiler versions, dependencies used and their versions or
   Spack environment configuration and lock files if Spack is used
 - The job submission scripts and launch wrapper scripts used (if any)
-- The `H2O-dft-ls.inp` file used
+- The `H2O-dft-ls.inp` files used
 - The output from the `validate.py` script
 - All standard CP2K output files
 - A list of options passed to CP2K (if any)
