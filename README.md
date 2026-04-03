@@ -77,11 +77,10 @@ Compiling the code involves two main steps:
 
 Detailed instructions are provided with the software package.
 
-### Example instructions
-As an example, we provide manual instructions for building CP2K on
-[IsambardAI](https://docs.isambard.ac.uk/specs/#system-specifications-isambard-ai-phase-2).
-
-- [Building CP2K on IsambardAI](build_isambardai.md)
+### Example build scripts
+Example build scripts are provided for:
+- NVIDIA GH200 system ([IsambardAI](https://docs.isambard.ac.uk/specs/#system-specifications-isambard-ai-phase-2)): [build_cp2k_GH200-IsambardAI.sh](build_cp2k_GH200-IsambardAI.sh)
+- AMD MI210 system: [build_cp2k_MI210.sh](build_cp2k_MI210.sh)
 
 
 ## Running the benchmark
