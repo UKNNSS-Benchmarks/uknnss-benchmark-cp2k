@@ -1,6 +1,8 @@
 # UK NNSS CP2K benchmark
 
 This repository describes the CP2K benchmark for the UK NNSS procurement.
+
+## Benchmark Overview
 CP2K is a quantum chemistry and solid state physics software package that
 can perform atomistic simulations of solid state, liquid, molecular, periodic,
 material, crystal, and biological systems. CP2K provides a general framework
@@ -26,42 +28,61 @@ Stable
 
 - Andrew Turner
 
-**Important:** Please do not contact the benchmark maintainers directly with any questions.
+>**Important:** Please do not contact the benchmark maintainers directly with any questions.
 All questions on the benchmark must be submitted via the procurement response mechanism.
 
 ## Software
 
 [CP2K](https://github.com/cp2k/cp2k)
 
+>**Important:** All results submitted should be based on the following repository commit:
+>- CP2K repository: [release version 2026.1 (757bb76)](https://github.com/cp2k/cp2k/releases/tag/v2026.1)
+
 ## Building the benchmark
 
-**Important:** All results submitted should be based on the following repository commit:
+Compiling the code involves two main steps:
 
-- CP2K repository: [release version 2026.1 (757bb76)](https://github.com/cp2k/cp2k/releases/tag/v2026.1)
+1. building the third-party dependencies
 
-### Baseline build
+   ```
+   cd cp2k-2026.1/tools/toolchain
+   ./install_cp2k_toolchain.sh  -j16
+   ```
 
-For the baseline run the only permitted modifications allowed are those that
-modify the CP2K or its dependencies to resolve unavoidable compilation or
-runtime errors.
+   Additional flags can be supplied to target specific hardware and customise the use of system-installed libraries. For example,
+   ```
+   --enable-cuda --gpu-ver=H100 --enable-cray
+   ```
+   or
+   ```
+   --with-scalapack=system --enable-hip --gpu-ver=Mi250
+   ```
+   See the help message for full list of available flags.
 
-### Optimised build
+2. building CP2K
+   ```
+   cd cp2k-2026.1
+   source tools/toolchain/install/setup
 
-Any modifications to the source code are allowed as long as they are able to be provided
-back to the community under the same licence as is used for the software package that is
-being modified. Any submitted benchmark must clearly point to a publicly visible pull/merge
-request issued by the benchmarking team that contains all changes, i.e. the same (altered)
-code base as to be used for all benchmark runs.
+   CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:/opt/rocm-7.0.2/lib/cmake  \
+     cmake -S . -B build \
+       -DCP2K_USE_LIBXC=ON -DCP2K_USE_LIBINT2=ON -DCP2K_USE_SPGLIB=ON \
+       -DCP2K_USE_ELPA=ON -DCP2K_USE_SPLA=ON -DCP2K_USE_SIRIUS=ON \
+       -DCP2K_USE_COSMA=ON -DCP2K_USE_MPI=ON -DCP2K_DBCSR_USE_CPU_ONLY=OFF \
+       -DDBCSR_DIR=./tools/toolchain/install/dbcsr-2.9.0-hip/lib/cmake/dbcsr \
+       -DCP2K_USE_ACCEL=HIP -DCP2K_SUPPORTED_HIP_ARCHITECTURES=Mi210 \
+       -DCMAKE_HIP_ARCHITECTURES=gfx90a
+   ```
+   modifying the last three lines with appropriate architecture-specific flags.
 
-The assessment team furthermore appreciates a description of any changes implemented by
-the benchmarking team.
+Detailed instructions are provided with the software package.
 
-### Build instructions
-
+### Example instructions
 As an example, we provide manual instructions for building CP2K on
 [IsambardAI](https://docs.isambard.ac.uk/specs/#system-specifications-isambard-ai-phase-2).
 
 - [Building CP2K on IsambardAI](build_isambardai.md)
+
 
 ## Running the benchmark
 
@@ -148,28 +169,8 @@ To be a valid FoM, the following conditions must be met:
 - The CP2K input files must not be modified from the versions
   available in this repository (other than setting "NREP" as required)
 
-### Required data
 
-Data for the following table have to be provided. Optionally, if partitions
-with different hardware (e.g. processor/GPU type, interconnect) are provided, then the
-benchmark should also be run on the maximum possible size in each partition and the
-results reported in the same format as the table below.
-
-In all cases, the bidder is free to choose the number of MPI processes per GPU
-that gives the best performance for that case.
-
-| Size      | # Atoms | # GPU | # MPI per GPU | # MPI Total | Baseline BenchmarkTime (s) | Optimised BenchmarkTime (s) |
-| :-------- | ----: | --: | --: | --: | --: | --: |
-| NREP 1    |    96 |   1 |     |     |     |     |
-| NREP 2    |   768 |   1 |     |     |     |     |
-| NREP 3    |  2592 |   1 |     |     |     |     |
-| NREP 4    |  6144 |   4 |     |     |     |     |
-| NREP 5    | 12000 |   8 |     |     |     |     |
-| NREP 6    | 20736 |  32 |     |     |     |     |
-| NREP 6    | 20736 | 128 |     |     |     |     |
-| NREP 6    | 20736 | (Choose #GPU for best performance) |  |  |  |  |
-
-### Example performance data
+### Reference data
 
 The sample data in the table below are measured BencharkTime from the IsambardAI GPU system.
 IsambardAI's GPU nodes each have four NVIDIA GH200 superchips;
@@ -180,32 +181,17 @@ over a single MPI process per GPU.
 
 The upper rows of the table describe performance change as the problem size increases.
 The lower two rows show the performance of the benchmark problem size (NREP 6) for
-two different GPU counts CP2K. The final row corresponds to the reference configuration
-that must be matched by the offerer.
+two different GPU counts.
 
 | Size      | # Atoms | # GH200  | # MPI per GPU | # MPI | BenchmarkTime (s) |
 | ----      | ------: | -------: | ------------: | ----: | ----------------: |
-| NREP 1    |    96 |   1 |    8 |    8 |   2.3  |
-| NREP 2    |   768 |   1 |    8 |    8 |   9.0  |
-| NREP 3    |  2592 |   1 |    8 |    8 |  75.7  |
-| NREP 4    |  6144 |   4 |    8 |   32 |  75.7  |
-| NREP 5    | 12000 |   8 |    8 |   64 | 104.9  |
-| NREP 6    | 20736 |  32 |    8 |  256 |  90.2  |
-| NREP 6    | 20736 | 128 |    8 | 1024 |  42.5  |
-
-## Reporting Results
-
-The bidder should provide copies of:
-
-- Details of any modifications made to the CP2K or dependencies source code
-- The compilation process and configuration settings used for the benchmark results - 
-  including makefiles, compiler versions, dependencies used and their versions or
-  Spack environment configuration and lock files if Spack is used
-- The job submission scripts and launch wrapper scripts used (if any)
-- The `H2O-dft-ls.inp` files used
-- The output from the `validate.py` script
-- All standard CP2K output files
-- A list of options passed to CP2K (if any)
+| NREP 1    |      96 |        1 |             8 |     8 |              2.3  |
+| NREP 2    |     768 |        1 |             8 |     8 |              9.0  |
+| NREP 3    |    2592 |        1 |             8 |     8 |             75.7  |
+| NREP 4    |    6144 |        4 |             8 |    32 |             75.7  |
+| NREP 5    |   12000 |        8 |             8 |    64 |            104.9  |
+| NREP 6    |   20736 |       32 |             8 |   256 |             90.2  |
+| NREP 6    |   20736 |      128 |             8 |  1024 |             42.5  |
 
 ## License
 
