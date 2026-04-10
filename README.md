@@ -82,6 +82,11 @@ Example build scripts are provided for:
 - NVIDIA GH200 system ([IsambardAI](https://docs.isambard.ac.uk/specs/#system-specifications-isambard-ai-phase-2)): [build_cp2k_GH200-IsambardAI.sh](build_cp2k_GH200-IsambardAI.sh)
 - AMD MI210 system: [build_cp2k_MI210.sh](build_cp2k_MI210.sh)
 
+### Allowed modifications
+
+Some users reported issues using the vanilla toolchain supplied versions of OpenBLAS with Scalapack due to linker error with multiply defined symbols. 
+Benchmarkers are allowed to use their own system stack versions of these two components and to let the benchmark workagainst these libraries.
+
 
 ## Running the benchmark
 
@@ -100,7 +105,9 @@ is varied to provide all the data required from submission. The
 number of atoms in the model scales cubically with NREP.
 
 **Note:** For best performance from key DBSCR routines a square number of MPI
-processes may need to be used (e.g. 64, 256, 1024).
+processes may need to be used (e.g. 64, 256, 1024). This applies to setups where benchmarkers are free to pick the configuration of MPI ranks. 
+
+<i>TODO</i>: A remark on CPU-only is missing.
 
 ### Benchmark execution
 
@@ -108,6 +115,16 @@ Make sure all the input files are in the working directory and use the
 parallel launcher (e.g. `srun` or `mpirun`) to run CP2K specifying the
 input and output files using the `-i [inputfile].inp` and `-o [outputfile.out]`
 options respectively. 
+
+<i>TODO</i>: It is not clear where these files are (see Chris' email), and there has to be a clear mapping of the problem specs from the Excel sheet onto file names. Here are the files we use:
+
+| Problem setup | Filename |
+| ------------- | -------- |
+| NREP 1        | TODO     |
+| NREP 2        | TODO     |
+| NREP 3        | TODO     |
+| NREP 4        | TODO     |
+| NREP 5        | TODO     |
 
 **Note:** You may need to use a wrapper script to enable proper process
 to GPU binding or to launch any multi-process per GPU services. 
