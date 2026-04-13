@@ -116,15 +116,15 @@ parallel launcher (e.g. `srun` or `mpirun`) to run CP2K specifying the
 input and output files using the `-i [inputfile].inp` and `-o [outputfile.out]`
 options respectively. 
 
-<i>TODO</i>: It is not clear where these files are (see Chris' email), and there has to be a clear mapping of the problem specs from the Excel sheet onto file names. Here are the files we use:
+<i>TODO</i>: These input files need checking.
 
-| Problem setup | Filename |
-| ------------- | -------- |
-| NREP 1        | TODO     |
-| NREP 2        | TODO     |
-| NREP 3        | TODO     |
-| NREP 4        | TODO     |
-| NREP 5        | TODO     |
+| Problem setup | Filename                 |
+| ------------- | -------------------------|
+| NREP 1        | H2O-dft-ls.NREP1.inp     |
+| NREP 2        | H2O-dft-ls.NREP2.inp     |
+| NREP 3        | H2O-dft-ls.NREP3.inp     |
+| NREP 4        | H2O-dft-ls.NREP4.inp     |
+| NREP 5        | H2O-dft-ls.NREP5.inp     |
 
 **Note:** You may need to use a wrapper script to enable proper process
 to GPU binding or to launch any multi-process per GPU services. 
