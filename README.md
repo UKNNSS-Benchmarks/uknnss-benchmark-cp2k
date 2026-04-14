@@ -20,17 +20,6 @@ energy calculation using linear scaling DFT.
 
 CP2K stresses both the GPU and CPU simultaneously for this benchmark case.
 
-## Status
-
-Stable
-
-## Maintainers
-
-- Andrew Turner
-
->**Important:** Please do not contact the benchmark maintainers directly with any questions.
-All questions on the benchmark must be submitted via the procurement response mechanism.
-
 ## Software
 
 [CP2K](https://github.com/cp2k/cp2k)
