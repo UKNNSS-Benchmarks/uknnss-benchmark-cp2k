@@ -25,7 +25,7 @@ CP2K stresses both the GPU and CPU simultaneously for this benchmark case.
 
 ## Software
 
-[CP2K](https://github.com/cp2k/cp2k)
+Git repository: [CP2K](https://github.com/cp2k/cp2k)
 
 > [!CAUTION]
 > All results submitted should be based on the following repository commit:
