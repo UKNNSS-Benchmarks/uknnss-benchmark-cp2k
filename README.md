@@ -2,6 +2,9 @@
 
 This repository describes the CP2K benchmark for the UK NNSS procurement.
 
+> [!IMPORTANT]
+> Please do not contact the benchmark or code maintainers directly with any questions. All questions must be submitted via the procurement response mechanism.
+
 ## Benchmark Overview
 CP2K is a quantum chemistry and solid state physics software package that
 can perform atomistic simulations of solid state, liquid, molecular, periodic,
@@ -24,7 +27,8 @@ CP2K stresses both the GPU and CPU simultaneously for this benchmark case.
 
 [CP2K](https://github.com/cp2k/cp2k)
 
->**Important:** All results submitted should be based on the following repository commit:
+> [!CAUTION]
+> All results submitted should be based on the following repository commit:
 >- CP2K repository: [release version 2026.1 (757bb76)](https://github.com/cp2k/cp2k/releases/tag/v2026.1)
 
 ## Building the benchmark
@@ -93,7 +97,8 @@ The parameter "NREP" in the `H2O-dft-ls.inp` file sets the problem size and
 is varied to provide all the data required from submission. The
 number of atoms in the model scales cubically with NREP.
 
-**Note:** For best performance from key DBSCR routines a square number of MPI
+> [!TIP]
+> For best performance from key DBSCR routines a square number of MPI
 processes may need to be used (e.g. 64, 256, 1024). This applies to setups where benchmarkers are free to pick the configuration of MPI ranks. 
 
 <i>TODO</i>: A remark on CPU-only is missing.
@@ -105,8 +110,6 @@ parallel launcher (e.g. `srun` or `mpirun`) to run CP2K specifying the
 input and output files using the `-i [inputfile].inp` and `-o [outputfile.out]`
 options respectively. 
 
-<i>TODO</i>: These input files need checking.
-
 | Problem setup | Filename                 |
 | ------------- | -------------------------|
 | NREP 1        | H2O-dft-ls.NREP1.inp     |
@@ -115,7 +118,8 @@ options respectively.
 | NREP 4        | H2O-dft-ls.NREP4.inp     |
 | NREP 5        | H2O-dft-ls.NREP5.inp     |
 
-**Note:** You may need to use a wrapper script to enable proper process
+> [!TIP]
+> You may need to use a wrapper script to enable proper process
 to GPU binding or to launch any multi-process per GPU services. 
 
 The full example Slurm batch script and MPS wrapper script from IsambardAI
