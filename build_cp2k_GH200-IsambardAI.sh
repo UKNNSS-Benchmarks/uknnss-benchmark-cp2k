@@ -1,18 +1,15 @@
-# Example build instructions: IsambardAI
+#!/bin/bash
+#[IsambardAI](https://docs.isambard.ac.uk/specs/#system-specifications-isambard-ai-phase-2)
+#is an HPE Cray EX system with NVIDIA GH200 and the HPE Cray Slingshot 11 interconnect.
 
-[IsambardAI](https://docs.isambard.ac.uk/specs/#system-specifications-isambard-ai-phase-2)
-is an HPE Cray EX system with NVIDIA GH200 and the HPE Cray Slingshot 11 interconnect.
+VER=2026.1
 
-**Download and unpack source code**
-
-```
-wget https://github.com/cp2k/cp2k/archive/refs/tags/v2026.1.tar.gz
+if [ ! -f v$VER.tar.gz ]; then
+    wget https://github.com/cp2k/cp2k/archive/refs/tags/v2026.1.tar.gz
+fi
+rm -rf cp2k-$VER
 tar -xvf v2026.1.tar.gz
-```
 
-**Build dependencies**
-
-```
 cd cp2k-2026.1/tools/toolchain
 
 module load craype-network-ofi
@@ -31,11 +28,8 @@ export CUDA_PATH=/opt/nvidia/hpc_sdk/Linux_aarch64/24.11/math_libs/12.6
    --enable-cuda --gpu-ver=H100 \
    --enable-cray \
    -j16
-```
 
-**Build CP2K**
 
-```
 cd cp2k-2026.1
 
 module load craype-network-ofi
@@ -76,4 +70,3 @@ cmake -S .. -B build \
     -DDBCSR_DIR=/projects/u6cb/software/CP2K/cp2k-2026.1/tools/toolchain/install/dbcsr-2.9.0-cuda/lib/cmake/dbcsr
 
 cmake --build build -j 32 
-```
