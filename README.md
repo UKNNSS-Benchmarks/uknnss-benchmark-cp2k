@@ -181,6 +181,7 @@ To be a valid FoM, the following conditions must be met:
 
 ### Reference data
 
+#### IsambardAI (GH200)
 The sample data in the table below are measured BencharkTime from the IsambardAI GPU system.
 IsambardAI's GPU nodes each have four NVIDIA GH200 superchips;
 GPU jobs used 32 MPI processes per node, 8 MPI processes per GPU and 9 OpenMP CPU 
@@ -201,6 +202,15 @@ two different GPU counts.
 | NREP 5    |   12000 |        8 |             8 |    64 |            104.9  |
 | NREP 6    |   20736 |       32 |             8 |   256 |             90.2  |
 | NREP 6    |   20736 |      128 |             8 |  1024 |             42.5  |
+
+#### Hunter (Mi300A)
+
+| Size      | # Atoms | # Mi300A | # MPI per GPU | # MPI | BenchmarkTime (s) |
+| ----      | ------: | -------: | ------------: | ----: | ----------------: |
+| NREP 1    |      96 |        1 |             8 |     8 |              9.0  |
+| NREP 2    |     768 |        1 |             8 |     8 |            148.5  |
+| NREP 6    |   20736 |       32 |             8 |   256 |            919.5  |
+
 
 ## License
 
