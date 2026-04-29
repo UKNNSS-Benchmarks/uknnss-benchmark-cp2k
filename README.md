@@ -208,11 +208,20 @@ two different GPU counts.
 | Size      | # Atoms | # Mi300A | # MPI per GPU | # MPI | BenchmarkTime (s) |
 | ----      | ------: | -------: | ------------: | ----: | ----------------: |
 | NREP 1    |      96 |        1 |             8 |     8 |              9.0  |
-| NREP 2    |     768 |        1 |             8 |     8 |            148.5  |
-| NREP 6    |   20736 |       32 |             8 |   256 |            919.5  |
+| NREP 2    |     768 |        1 |             8 |     8 |             25.2  |
+| NREP 3    |    2592 |        1 |             8 |     8 |            172.0  |
+| NREP 6    |   20736 |       16 |             8 |   128 |            381.7  |
 
 
 ## License
 
 This benchmark description and any associated files are released under the
 MIT license.
+
+## Changelog
+
+The following changes to this document have been made since initial release:
+
+| <div style="width:90px">Date</div> | Change |
+|-----------:|--------|
+| 2026-04-29 | Updates to Hunter reference data |
