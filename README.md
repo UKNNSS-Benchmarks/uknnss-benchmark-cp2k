@@ -101,7 +101,6 @@ number of atoms in the model scales cubically with NREP.
 > For best performance from key DBSCR routines a square number of MPI
 processes may need to be used (e.g. 64, 256, 1024). This applies to setups where benchmarkers are free to pick the configuration of MPI ranks. 
 
-<i>TODO</i>: A remark on CPU-only is missing.
 
 ### Benchmark execution
 
