@@ -109,7 +109,7 @@ parallel launcher (e.g. `srun` or `mpirun`) to run CP2K specifying the
 input and output files using the `-i [inputfile].inp` and `-o [outputfile.out]`
 options respectively. 
 
-As NREP increases, the number of atoms in the problem increases cubically 
+As NREP increases, the number of atoms in the problem increases cubically.
 
 | Problem setup | Filename                 | Problem scale |  Number of atoms    |
 | ------------- | -------------------------|---:|---------------:|
@@ -169,9 +169,8 @@ For example:
 ### Performance results
 
 In addition to testing for correctness, `validate.py` will also print the BenchmarkTime,
-which is the sole FoM for the benchmark.
-The BenchmarkTime printed by `validate.py` corresponds to the
-elapsed time reported in the CP2K output file.
+which is the sole FoM for the benchmark. The BenchmarkTime printed by `validate.py`
+corresponds to the elapsed time reported in the CP2K output file.
 
 To be a valid FoM, the following conditions must be met:
 
@@ -187,8 +186,8 @@ To be a valid FoM, the following conditions must be met:
 The sample data in the table below are measured BencharkTime from the IsambardAI GPU system.
 IsambardAI's GPU nodes each have four NVIDIA GH200 superchips;
 GPU jobs used 32 MPI processes per node, 8 MPI processes per GPU and 9 OpenMP CPU 
-threads per MPI process. [NVIDIA MPS](https://docs.nvidia.com/deploy/mps/index.html)  
-is used to support multiple MPI processes per node as this gives improved performance
+threads per MPI process. [NVIDIA MPS](https://docs.nvidia.com/deploy/mps/index.html) is used
+to support multiple MPI processes per node as this gives improved performance
 over a single MPI process per GPU.
 
 The upper rows of the table describe performance change as the problem size increases.
