@@ -109,13 +109,16 @@ parallel launcher (e.g. `srun` or `mpirun`) to run CP2K specifying the
 input and output files using the `-i [inputfile].inp` and `-o [outputfile.out]`
 options respectively. 
 
-| Problem setup | Filename                 |
-| ------------- | -------------------------|
-| NREP 1        | H2O-dft-ls.NREP1.inp     |
-| NREP 2        | H2O-dft-ls.NREP2.inp     |
-| NREP 3        | H2O-dft-ls.NREP3.inp     |
-| NREP 4        | H2O-dft-ls.NREP4.inp     |
-| NREP 5        | H2O-dft-ls.NREP5.inp     |
+As NREP increases, the number of atoms in the problem increases cubically 
+
+| Problem setup | Filename                 | Problem scale |  Number of atoms    |
+| ------------- | -------------------------|---:|---------------:|
+| NREP 1        | H2O-dft-ls.NREP1.inp     | 1<sup>3</sup> &times; 96 | 96 |
+| NREP 2        | H2O-dft-ls.NREP2.inp     | 2<sup>3</sup> &times; 96 | 768 |
+| NREP 3        | H2O-dft-ls.NREP3.inp     | 3<sup>3</sup> &times; 96 | 2592 |
+| NREP 4        | H2O-dft-ls.NREP4.inp     | 4<sup>3</sup> &times; 96 | 6144 |
+| NREP 5        | H2O-dft-ls.NREP5.inp     | 5<sup>3</sup> &times; 96 | 12000 |
+| NREP 6        | H2O-dft-ls.NREP5.inp     | 6<sup>3</sup> &times; 96 | 20736 |
 
 > [!TIP]
 > You may need to use a wrapper script to enable proper process
